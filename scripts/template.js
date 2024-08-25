@@ -1,17 +1,6 @@
 function getBooksTemplate(i) {
-  let tableComments = "";
-  for (
-    let indexComments = 0;
-    indexComments < books[i].comments.length;
-    indexComments++
-  ) {
-    tableComments += `        
-                <tr>
-                    <td>${books[i].comments[indexComments].name}</td>
-                    <td>:</td>
-                    <td>${books[i].comments[indexComments].comment}</td>
-                </tr>`;
-  }
+
+  let tableCommentsHtml = renderCommentsHtml(i);
 
   return `
     <div class="content-book">
@@ -23,10 +12,10 @@ function getBooksTemplate(i) {
         <hr>
         <div class="ctn-book-details">
           <div class="book-details">
-            <p id="price">${books[i].price.toFixed(2)} €</p>
+            <p id="price">${books[i].price.toFixed(2).replace(".",",")} €</p>
             <div class="likes">
-              <p id="amount-likes">${books[i].likes}</p>
-              <img id="img-heart" src="./assets/icons/icons8-herz-100 (1).png" alt="">
+              <p id="amount-likes${i}">${books[i].likes}</p>
+              <img id="img-heart${i}" class="img-heart" src="${books[i].liked ? './assets/icons/icons8-herz-like.png' : './assets/icons/icons8-herz-dislike.png'}" alt="Herz-Icon">
             </div>
           </div>
           <table class="table-book-details">
@@ -52,7 +41,7 @@ function getBooksTemplate(i) {
           <p>Kommentare:</p>
           <div id="comments" class="comments">
             <table id="table-comments${i}" class="table-comments">
-              ${tableComments}
+              ${tableCommentsHtml}
             </table>
           </div>
           <div id="write-comment" class="write-comment">
@@ -71,4 +60,14 @@ function renderCommentHtml(inputName, inputComment) {
                     <td>:</td>
                     <td>${inputComment}</td>
                 </tr>`;
+}
+
+function renderCommentsHtml(i) {
+  return books[i].comments.map(comment => `
+    <tr>
+      <td>${comment.name}</td>
+      <td>:</td>
+      <td>${comment.comment}</td>
+    </tr>
+  `).join('');
 }

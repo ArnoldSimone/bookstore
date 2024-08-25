@@ -86,8 +86,13 @@ hr {
   font-size: 16px;
 }
 
-#img-heart {
+.img-heart {
   width: 35px;
+}
+
+.img-heart:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 #img-book {
