@@ -1,20 +1,20 @@
 function getBooksTemplate(i) {
-    let tableComments = "";
-    for (
-        let indexComments = 0;
-        indexComments < books[i].comments.length;
-        indexComments++
-    ) {
-        tableComments += `        
+  let tableComments = "";
+  for (
+    let indexComments = 0;
+    indexComments < books[i].comments.length;
+    indexComments++
+  ) {
+    tableComments += `        
                 <tr>
                     <td>${books[i].comments[indexComments].name}</td>
                     <td>:</td>
                     <td>${books[i].comments[indexComments].comment}</td>
                 </tr>`;
-    }
+  }
 
   return `
-    <div id="content-book">
+    <div class="content-book">
         <p id="title">${books[i].name}</p>
         <hr>
         <div id="ctn-img-book" >
@@ -51,14 +51,24 @@ function getBooksTemplate(i) {
         <div class="ctn-comments">
           <p>Kommentare:</p>
           <div id="comments" class="comments">
-            <table class="table-comments">
+            <table id="table-comments${i}" class="table-comments">
               ${tableComments}
             </table>
           </div>
           <div id="write-comment" class="write-comment">
-            <input id="input-comment" type="text" placeholder="Scheibe dein Kommentar ...">
-            <img src="./assets/icons/icons8-papierflieger-50.png" alt="Send-Image">
+            <input id="input-name${i}" class="input-name" name="input-name" type="text" placeholder="Dein Name ...">
+            <input id="input-comment${i}" class="input-comment" name="input-comment" type="text" placeholder="Scheibe dein Kommentar ...">
+            <img id="sendCommit${i}" class="sendCommit" src="./assets/icons/icons8-papierflieger-50.png" alt="Send-Image">
           </div>
         </div>
     </div>`;
+}
+
+function renderCommentHtml(inputName, inputComment) {
+  return ` 
+                <tr>
+                    <td>${inputName}</td>
+                    <td>:</td>
+                    <td>${inputComment}</td>
+                </tr>`;
 }
